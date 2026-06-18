@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro – Festival de Verano 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky: #4ec8f0;
+      --deep-sky: #1a8ab5;
+      --sun: #f5c030;
+      --lime: #7ed321;
+      --coral: #ff6b6b;
+      --white: #ffffff;
+      --dark: #0d2a40;
+      --card-bg: rgba(255,255,255,0.15);
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(160deg, #87d8f7 0%, #4ec8f0 35%, #1a8ab5 70%, #0d2a40 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 60px 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Burbujas decorativas de agua */
+    .bubbles {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      animation: rise linear infinite;
+    }
+    .bubble:nth-child(1)  { width:20px; height:20px; left:10%;  animation-duration:8s;  animation-delay:0s;   }
+    .bubble:nth-child(2)  { width:14px; height:14px; left:25%;  animation-duration:10s; animation-delay:2s;   }
+    .bubble:nth-child(3)  { width:30px; height:30px; left:40%;  animation-duration:7s;  animation-delay:1s;   }
+    .bubble:nth-child(4)  { width:10px; height:10px; left:60%;  animation-duration:12s; animation-delay:3s;   }
+    .bubble:nth-child(5)  { width:22px; height:22px; left:75%;  animation-duration:9s;  animation-delay:0.5s; }
+    .bubble:nth-child(6)  { width:16px; height:16px; left:88%;  animation-duration:11s; animation-delay:4s;   }
+    @keyframes rise {
+      0%   { bottom:-60px; opacity:0;   transform: translateX(0); }
+      20%  { opacity:0.6; }
+      80%  { opacity:0.4; }
+      100% { bottom:110%;  opacity:0;   transform: translateX(30px); }
+    }
+
+    /* Header con logo */
+    .header {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px 0;
+      gap: 8px;
+    }
+
+    .logo-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: 3px solid rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .logo-wrap img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+    }
+
+    .church-name {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* Título del evento */
+    .event-hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px 20px 0;
+    }
+    .event-title-top {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .event-title-main {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.8rem, 12vw, 4.5rem);
+      color: var(--sun);
+      line-height: 1;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.2), 0 0 30px rgba(245,192,48,0.4);
+      margin: 4px 0;
+    }
+    .event-year {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.6rem, 7vw, 2.4rem);
+      color: var(--white);
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    }
+    .event-date-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--lime);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 5px 16px;
+      border-radius: 50px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Splash decorativo */
+    .splash-divider {
+      position: relative;
+      z-index: 1;
+      font-size: 2rem;
+      margin: 14px 0 4px;
+      letter-spacing: 4px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    /* Banner de premio */
+    .prize-banner {
+      position: relative;
+      z-index: 1;
+      width: min(480px, calc(100% - 32px));
+      background: linear-gradient(135deg, #f5c030 0%, #f09000 100%);
+      border-radius: 18px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(245,192,48,0.45);
+      margin-bottom: 4px;
+    }
+    .prize-icon {
+      font-size: 2.4rem;
+      flex-shrink: 0;
+      animation: wobble 2.5s ease-in-out infinite;
+    }
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-8deg); }
+      50%       { transform: rotate(8deg); }
+    }
+    .prize-text strong {
+      display: block;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.05rem;
+      color: #0d2a40;
+      line-height: 1.2;
+    }
+    .prize-text span {
+      font-size: 0.78rem;
+      color: rgba(13,42,64,0.75);
+      font-weight: 700;
+    }
+
+    /* Card del formulario */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(480px, calc(100% - 32px));
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 24px;
+      padding: 28px 24px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .card-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .card-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    /* Campos */
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .field label span.req {
+      color: var(--sun);
+      margin-left: 2px;
+    }
+
+    .field input[type="text"],
+    .field input[type="tel"],
+    .field input[type="number"],
+    .field select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.25);
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.55); }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--sun);
+      background: rgba(255,255,255,0.32);
+    }
+    .field select option { color: var(--dark); background: #fff; }
+
+    /* Checkbox de fotos */
+    .photo-permission {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+    .photo-permission label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .photo-permission input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      accent-color: var(--lime);
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .photo-permission .perm-text {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+    }
+    .photo-permission .perm-text strong {
+      color: var(--sun);
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+    }
+
+    /* Botón */
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--sun) 0%, #f09000 100%);
+      color: var(--dark);
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(245,192,48,0.45);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,192,48,0.55); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* Pantalla de éxito */
+    .success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+    .success-icon { font-size: 3.5rem; }
+    .success-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.8rem;
+      color: var(--sun);
+    }
+    .success-screen p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+    }
+    .success-screen .detail {
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      width: 100%;
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="logo-emanuel.png" alt="Iglesia Bautista Emanuel" />
+    </div>
+    <p class="church-name">Iglesia Bautista Emanuel · OKC</p>
+  </div>
+
+  <!-- Título del evento -->
+  <div class="event-hero">
+    <div class="event-title-top">Festival de</div>
+    <div class="event-title-main">Verano</div>
+    <div class="event-year">2026</div>
+    <div class="event-date-badge">🗓 Sábado 18 de julio · 10:00 AM</div>
+  </div>
+
+  <div class="splash-divider">🌊💦🌊</div>
+
+  <!-- Banner de premio -->
+  <div class="prize-banner">
+    <div class="prize-icon">🎁</div>
+    <div class="prize-text">
+      <strong>¡Regístrate y lleva a tu niño a ganar una sorpresa especial!</strong>
+      
+    </div>
+  </div>
+
+  <!-- Card formulario -->
+  <div class="card">
+
+    <!-- Formulario visible -->
+    <div id="form-view">
+      <div class="card-title">¡Registra a tu niño!</div>
+      <p class="card-sub">Llena este formulario para participar en la <strong style="color:var(--sun)">sorpresa especial</strong> y mantenernos en contacto contigo.</p>
+
+      <!-- Netlify Forms: el atributo activa la captura -->
+      <form name="registro-festival-verano" method="POST" id="registro-form">
+        <div class="field">
+          <label>Nombre del niño <span class="req">*</span></label>
+          <input type="text" name="nombre_nino" placeholder="Nombre completo" required />
+        </div>
+
+        <div class="field">
+          <label>Edad <span class="req">*</span></label>
+          <input type="number" name="edad" placeholder="Ej. 7" min="1" max="17" required />
+        </div>
+
+        <div class="field">
+          <label>Nombre del padre / madre / tutor <span class="req">*</span></label>
+          <input type="text" name="nombre_tutor" placeholder="Nombre completo" required />
+        </div>
+
+        <div class="field">
+          <label>Teléfono del padre / madre / tutor <span class="req">*</span></label>
+          <input type="tel" name="telefono" placeholder="(405) 000-0000" required />
+        </div>
+
+        <div class="photo-permission">
+          <label>
+            <input type="checkbox" name="permiso_fotos" value="Sí" />
+            <div class="perm-text">
+              <strong>📸 Permiso para fotografías</strong>
+              Autorizo que mi niño aparezca en fotos grupales del evento que la iglesia pueda publicar en sus redes sociales.
+            </div>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit">¡Registrarme! 🎉</button>
+      </form>
+    </div>
+
+    <!-- Pantalla de éxito (se muestra tras enviar) -->
+    <div class="success-screen" id="success-view">
+      <div class="success-icon">🎊</div>
+      <h2>¡Registro completado!</h2>
+      <p>¡Gracias! Hemos recibido el registro de tu niño para el <strong>Festival de Verano 2026</strong>.</p>
+      <div class="detail">
+        📅 Sábado 18 de julio · 10:00 AM<br/>
+        📍 Iglesia Bautista Emanuel OKC<br/>
+        🎵 Música, juegos y muchas sorpresas
+      </div>
+      <p>Si tienes preguntas, comunícate con nosotros a través de nuestras redes sociales.</p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Iglesia Bautista Emanuel · Oklahoma City, OK<br/>
+    iglesiabautistaemanuelokc.org
+  </div>
+
+  <script>
+    const form = document.getElementById('registro-form');
+    const formView = document.getElementById('form-view');
+    const successView = document.getElementById('success-view');
+
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUwNJn0MuI0Vd0AuKbHRzK7wvTeTjPpxFitHqBq0uCGU7nQH0xi_jLXq1JigLT_d0w/exec';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      const data = new FormData(form);
+
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString()
+        });
+
+        formView.style.display = 'none';
+        successView.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        btn.textContent = '¡Registrarme! 🎉';
+        btn.disabled = false;
+        alert('Hubo un problema al enviar. Por favor intenta de nuevo.');
+      }
+    });
+  </script>
+
+</body>
+</html>
